@@ -43,7 +43,6 @@ async function displayMedia(medias) {
 }
 
 function openLightbox(id){
-    console.log('coucou')
     const lightbox = lightboxFactory(mediaArray, id)
     lightbox.getLightboxDOM();
 }
