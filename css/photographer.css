@@ -1,11 +1,29 @@
-#contact_modal {
-    display: none;
+
+
+#main_photographer {
+   margin: 0 100px;
 }
 
-.photograph-header {
-    background-color: #FAFAFA;
+.infosContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding:40px; 
+    background-color: #fafafa;
     height: 300px;
-    margin: 0 100px;
+    
+}
+.infos__infos {
+    display: flex;
+    flex-direction: column;
+}
+
+.infos__picture img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .contact_button {
@@ -16,14 +34,54 @@
     width: 170px;
     height: 70px;
     border: none;
-    background-color: #901C1C;
+    background-color: #901c1c;
     border-radius: 5px;
     cursor: pointer;
 }
 
+.portfolioContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 95px;
+    margin-top: 100px;
+}
+
+.portfolio__media{
+    width: 33%;
+}
+
+.portfolio__media-img{
+    border-radius:5px;
+    width: 350px;
+    height: 300px;
+    object-fit: cover;
+}
+.portfolio__media-text{
+    font-size:24px;
+    width: 320px;;
+    color: #901C1C;
+    font-weight: 400;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#contact_modal {
+    display: none;
+}
+
 .modal {
     border-radius: 5px;
-    background-color: #DB8876;
+    background-color: #db8876;
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -56,7 +114,7 @@ form {
 }
 
 form label {
-    color: #312E2E;
+    color: #312e2e;
     font-size: 36px;
 }
 
