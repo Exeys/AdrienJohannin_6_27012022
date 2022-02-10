@@ -2,6 +2,7 @@
 
 // Récupère l'id du photographe dans l'URL
 const id = (new URL(document.location)).searchParams.get('id');
+let mediaArray = [];
 
 async function getPhotographers() {
     const response = await fetch("../data/photographers.json")
@@ -14,6 +15,7 @@ async function getPhotographers() {
 async function getMedias() {
     const response = await fetch("../data/photographers.json")
     const data = await response.json();
+    mediaArray = data.media;
     return ({
         medias: data.media
     })
@@ -25,7 +27,7 @@ async function displayData(photographers) {
     const photograph = photographers.find((e) => e.id == id);
     const photographPage = photographerPageFactory(photograph);
     const pageUserCardDOM = photographPage.getPageUserCardDOM();
-    photographersHeader.prepend(pageUserCardDOM);
+    photographersHeader.append(pageUserCardDOM);
 }
 
 async function displayMedia(medias) {
@@ -38,6 +40,16 @@ async function displayMedia(medias) {
         const portfolioCardDOM = portfolio.getPortfolioCardDOM();
         photographersMedias.append(portfolioCardDOM);
     })
+}
+
+function openLightbox(id){
+    console.log('coucou')
+    const lightbox = lightboxFactory(mediaArray, id)
+    lightbox.getLightboxDOM();
+}
+
+function displayTotalLikes(){
+    // p innerhtml total likes mediaArray[]
 }
 
 async function init() {
