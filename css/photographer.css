@@ -16,6 +16,17 @@
     flex-direction: column;
 }
 
+.infos__infos-title{
+    color:#D3573C;
+}
+
+.infos__infos-subtitle .localisation{
+    color:#901C1C;
+}
+.infos__infos-subtitle .tagline{
+    color:#525252;
+}
+
 .infos__picture img {
     width: 200px;
     height: 200px;
@@ -52,6 +63,15 @@
     width: 350px;
     height: 300px;
     object-fit: cover;
+    cursor: pointer;
+}
+
+.portfolio__media-video{
+    border-radius: 5px;
+    width: 350px;
+    height: 300px;
+    cursor: pointer;
+    object-fit: initial;
 }
 .portfolio__media-text {
     display: flex;
@@ -88,18 +108,18 @@
     padding: 10px;
 }
 
-.pricing-likes {
+.pricing__likes {
     width: 10%;
     display: flex;
     justify-content: space-between;
     font-weight: 600;
 }
 
-.pricing-likes img {
+.pricing__likes img {
     filter: brightness(0%);
 }
 
-.pricing-price {
+.pricing__price {
     font-weight: 600;
 }
 
@@ -177,9 +197,9 @@ form input {
 
 .lightbox .container .media {
     width: 100%;
-    height: 100%;
+    height: 900px;
     margin: auto;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 .lightbox .close {
@@ -188,6 +208,7 @@ form input {
     height: 42px;
     right: 126px;
     top: 77px;
+    cursor: pointer;
 }
 
 .lightbox .previous {
@@ -196,6 +217,7 @@ form input {
     height: 29px;
     left: 131px;
     top: 488px;
+    cursor: pointer;
 }
 .lightbox .next {
     position: fixed;
@@ -203,4 +225,5 @@ form input {
     height: 29px;
     right: 131px;
     top: 488px;
+    cursor: pointer;
 }

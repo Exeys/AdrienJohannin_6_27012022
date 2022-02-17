@@ -1,8 +1,8 @@
-//Mettre le code JavaScript lié à la page photographer.html
 
 // Récupère l'id du photographe dans l'URL
 const id = (new URL(document.location)).searchParams.get('id');
 let mediaArray = [];
+let likesCounter = 0;
 
 async function getPhotographers() {
     const response = await fetch("../data/photographers.json")
@@ -33,8 +33,7 @@ async function displayData(photographers) {
 async function displayMedia(medias) {
     const photographersMedias = document.querySelector(".portfolioContainer");
 
-    const portfolio = medias.filter((e) => e.photographerId = id);
-
+    const portfolio = medias.filter((e) => e.photographerId == id);
     portfolio.forEach((media) => {
         const portfolio = photographerPortfolioFactory(media);
         const portfolioCardDOM = portfolio.getPortfolioCardDOM();
@@ -42,14 +41,28 @@ async function displayMedia(medias) {
     })
 }
 
-function openLightbox(id){
+function openLightbox(id) {
     const lightbox = lightboxFactory(mediaArray, id)
     lightbox.getLightboxDOM();
 }
 
-function displayTotalLikes(){
+function displayTotalLikes(medias) {
+    const container = document.querySelector('.pricing')
+    const likes = document.createElement('p')
+    likes.className = "pricing__likes"
+    medias.forEach((media) => {
+        if (media.photographerId == id) {
+            likesCounter += media.likes
+        }
+        likes.innerHTML = `
+            ${likesCounter} <img src="../assets/icons/heart.svg"/>
+        `
+        container.prepend(likes);
+    })
     // p innerhtml total likes mediaArray[]
 }
+
+
 
 async function init() {
     // Récupère les datas des photographes
@@ -57,6 +70,7 @@ async function init() {
     displayData(photographers);
     const { medias } = await getMedias();
     displayMedia(medias);
+    displayTotalLikes(medias);
 };
 
 init();

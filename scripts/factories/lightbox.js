@@ -1,6 +1,5 @@
 function lightboxFactory(medias, id) {
     let index = medias.findIndex(m => m.id === id);
-    console.log(medias);
     function getLightboxDOM() {
         const lightbox = document.querySelector(".lightbox");
         const container = document.createElement("div");
@@ -25,9 +24,13 @@ function lightboxFactory(medias, id) {
 
         lightbox.style.display = "block";
         if (medias[index].image) {
-            const image = document.createElement("img")
+            const ctner = document.createElement("div");
+            ctner.innerHTML = `
+            <img class="media" src="../assets/medias/${medias[index].image}"/>
+            `
+            /**const image = document.createElement("img")
             image.className = "media"
-            image.src = `../assets/medias/${medias[index].image}`
+            image.src = `../assets/medias/${medias[index].image}`**/
             nextLightbox.addEventListener('click', () => {
                 index++;
                 getLightboxDOM();
@@ -36,12 +39,16 @@ function lightboxFactory(medias, id) {
                 index--;
                 getLightboxDOM();
             });
-            container.appendChild(image);
+            container.appendChild(ctner);
         }
         if (medias[index].video) {
-            const video = document.createElement("video")
+            const ctner = document.createElement("div");
+            ctner.innerHTML = `
+            <video controls class="media" src="../assets/medias/${medias[index].video}"/>
+            `
+            /**const video = document.createElement("video")
             video.className = "media"
-            video.src = `../assets/medias/${medias[index].video}`
+            video.src = `../assets/medias/${medias[index].video}`**/
             nextLightbox.addEventListener('click', () => {
                 index++;
                 getLightboxDOM();
@@ -50,7 +57,7 @@ function lightboxFactory(medias, id) {
                 index--;
                 getLightboxDOM();
             });
-            container.appendChild(video)
+            container.appendChild(ctner)
         }
         container.appendChild(closeLightbox)
         container.appendChild(nextLightbox)
