@@ -11,10 +11,21 @@
 
 <body>
   <header>
-    <img src="assets/images/logo.png" class="logo" />
+    <a href="index.html">
+      <img src="assets/images/logo.png" class="logo"/>
+    </a>
   </header>
   <main id="main_photographer">
     <div class="infosContainer"></div>
+    <div class="filterContainer">
+      Trier par
+      <select class="filterContainer__filter">
+        <option value=""></option>
+        <option value="popularity">Popularité</option>
+        <option value="date">Date</option>
+        <option value="title">Titre</option>
+      </select>
+    </div>
     <div class="portfolioContainer"></div>
   </main>
   <div id="contact_modal">

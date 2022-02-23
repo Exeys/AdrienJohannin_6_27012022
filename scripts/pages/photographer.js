@@ -3,6 +3,7 @@
 const id = (new URL(document.location)).searchParams.get('id');
 let mediaArray = [];
 let likesCounter = 0;
+let portfolioArray = [];
 
 async function getPhotographers() {
     const response = await fetch("../data/photographers.json")
@@ -15,9 +16,9 @@ async function getPhotographers() {
 async function getMedias() {
     const response = await fetch("../data/photographers.json")
     const data = await response.json();
-    mediaArray = data.media;
+    mediaArray = data.media.filter((e) => e.photographerId == id);
     return ({
-        medias: data.media
+        medias: mediaArray
     })
 }
 
@@ -32,20 +33,13 @@ async function displayData(photographers) {
 
 async function displayMedia(medias) {
     const photographersMedias = document.querySelector(".portfolioContainer");
-
-    const portfolio = medias.filter((e) => e.photographerId == id);
-    portfolio.forEach((media) => {
+    medias.forEach((media) => {
         const portfolio = photographerPortfolioFactory(media);
+        portfolioArray.push(portfolio);
         const portfolioCardDOM = portfolio.getPortfolioCardDOM();
         photographersMedias.append(portfolioCardDOM);
     })
 }
-
-function openLightbox(id) {
-    const lightbox = lightboxFactory(mediaArray, id)
-    lightbox.getLightboxDOM();
-}
-
 function displayTotalLikes(medias) {
     const container = document.querySelector('.pricing')
     const likes = document.createElement('p')
@@ -55,22 +49,93 @@ function displayTotalLikes(medias) {
             likesCounter += media.likes
         }
         likes.innerHTML = `
-            ${likesCounter} <img src="../assets/icons/heart.svg"/>
+            <span id="likeCount">${likesCounter}</span><img src="../assets/icons/heart.svg"/>
         `
         container.prepend(likes);
     })
-    // p innerhtml total likes mediaArray[]
+}
+
+function sortMedia(medias) {
+    const photographersMedias = document.querySelector(".portfolioContainer");
+    const menu = document.querySelector('.filterContainer__filter');
+    menu.addEventListener('change', function (evt) {
+        var expression = evt.target.value;
+
+        switch (expression) {
+            case 'title':
+                medias.sort((a, b) => {
+                    if (a.title < b.title) {
+                        return -1;
+                    }
+                    if (a.title > b.title) {
+                        return 1;
+                    }
+                    return 0;
+                })
+                medias.forEach((media) => {
+                    const portfolio = photographerPortfolioFactory(media);
+                    portfolioArray.push(portfolio);
+                    const portfolioCardDOM = portfolio.getPortfolioCardDOM();
+                    photographersMedias.append(portfolioCardDOM);
+                })
+                break;
+            case 'popularity':
+                medias.sort((a, b) => b.likes - a.likes);
+                medias.forEach((media) => {
+                    const portfolio = photographerPortfolioFactory(media);
+                    portfolioArray.push(portfolio);
+                    const portfolioCardDOM = portfolio.getPortfolioCardDOM();
+                    photographersMedias.append(portfolioCardDOM);
+                })
+                break;
+            case 'date':
+                medias.sort((a, b) => b.date - a.date);
+                medias.forEach((media) => {
+                    const portfolio = photographerPortfolioFactory(media);
+                    portfolioArray.push(portfolio);
+                    const portfolioCardDOM = portfolio.getPortfolioCardDOM();
+                    photographersMedias.append(portfolioCardDOM);
+                })
+                break;
+        }
+
+    })
+
+
+};
+
+
+function openLightbox(id) {
+    const lightbox = lightboxFactory(mediaArray, id)
+    lightbox.getLightboxDOM();
+}
+
+function likeMedia(id) {
+    const portfolioToLike = portfolioArray.find(p => p.id === id)
+    if (likeMedia.done) return;
+    portfolioToLike.like()
+    likeCount = document.getElementById('likeCount');
+    likeCount.innerText = +likeCount.innerText + 1;
+    likeMedia = true;
+
 }
 
 
 
+// 
 async function init() {
-    // Récupère les datas des photographes
+    // Récupère les données des photographes
     const { photographers } = await getPhotographers();
+    // Affiche les données des photographes
     displayData(photographers);
+    // Récupère les données des médias
     const { medias } = await getMedias();
-    displayMedia(medias);
+    // Affiche les données des médias
+    // displayMedia(medias);
+    // Affiche le nombre total des "likes" des médias
     displayTotalLikes(medias);
+    sortMedia(medias);
 };
 
+// Appel de la fonction 
 init();

@@ -13,6 +13,7 @@ function lightboxFactory(medias, id) {
         const nextLightbox = document.createElement("img");
         nextLightbox.src = "../assets/icons/next.svg";
         nextLightbox.className = "next";
+
         const previousLightbox = document.createElement("img");
         previousLightbox.src = "../assets/icons/previous.svg";
         previousLightbox.className = "previous";
@@ -32,11 +33,19 @@ function lightboxFactory(medias, id) {
             image.className = "media"
             image.src = `../assets/medias/${medias[index].image}`**/
             nextLightbox.addEventListener('click', () => {
-                index++;
+                if (index < medias.length - 1) {
+                    index++
+                } else {
+                    index = 0;
+                }
                 getLightboxDOM();
             });
             previousLightbox.addEventListener('click', () => {
-                index--;
+                if (index > 0) {
+                    index--
+                } else {
+                    index = medias.length - 1;
+                }
                 getLightboxDOM();
             });
             container.appendChild(ctner);

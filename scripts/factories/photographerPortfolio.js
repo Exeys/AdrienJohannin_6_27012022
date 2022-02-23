@@ -1,5 +1,5 @@
 function photographerPortfolioFactory(data) {
-    const { photographerId, title, image, video, likes, price, id } = data;
+    let { photographerId, title, image, video, likes, price, id } = data;
 
     function getPortfolioCardDOM() {
         const media = document.createElement('div')
@@ -9,17 +9,23 @@ function photographerPortfolioFactory(data) {
         <img class="portfolio__media-img" src="../assets/medias/${image}" onclick="openLightbox(${id})"/>
         <div class="portfolio__media-text">
         <p class="portfolio__media-text-title"> ${title}</p>
-        <div class="portfolio__media-text-icon"><p>${likes}</p><img src="../assets/icons/heart.svg"/></div>
+        <div class="portfolio__media-text-icon">
+        <p class="like" id="nbLike_${id}" onclick="likeMedia(${id})">${likes}</p>
+        <img src="../assets/icons/heart.svg"/>
+        </div>
         </div>
         `
         }
 
-        if (video){
+        if (video) {
             media.innerHTML = `
         <video class="portfolio__media-video" src="../assets/medias/${video}" type=video/mp4 onclick="openLightbox(${id})"></video>
         <div class="portfolio__media-text">
         <p class="portfolio__media-text-title"> ${title}</p>
-        <div class="portfolio__media-text-icon"><p>${likes}</p><img src="../assets/icons/heart.svg"/></div>
+        <div class="portfolio__media-text-icon">
+        <p class="like" onclick="likeMedia()">${likes}</p>
+        <img src="../assets/icons/heart.svg"/>
+        </div>
         </div>
         `
         }
@@ -29,6 +35,12 @@ function photographerPortfolioFactory(data) {
         `
         return (media);
     }
-    return { photographerId, title, image, video, price, likes, getPortfolioCardDOM }
+
+
+    function like() {
+        likes++;
+        document.getElementById('nbLike_' + id).innerText = likes;
+    }
+    return { id, photographerId, title, image, video, price, likes, getPortfolioCardDOM, like }
 }
 
