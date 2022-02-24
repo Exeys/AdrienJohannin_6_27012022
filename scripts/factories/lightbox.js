@@ -18,10 +18,35 @@ function lightboxFactory(medias, id) {
         previousLightbox.src = "../assets/icons/previous.svg";
         previousLightbox.className = "previous";
 
-
+        // Au clic sur l'element de fermeture
         closeLightbox.addEventListener('click', () => {
             lightbox.style.display = "none"
         })
+
+        // Écoute des instructions au clavier (touches fléchées)
+        window.addEventListener('keydown', function (event) {
+            if (event.defaultPrevented) {
+                return;
+            }
+            switch (event.key) {
+                case 'ArrowLeft':
+                    if (index > 0) {
+                        index--
+                    } else {
+                        index = medias.length - 1;
+                    }
+                    break;
+                case 'ArrowRight':
+                    if (index < medias.length - 1) {
+                        index++
+                    } else {
+                        index = 0;
+                    }
+                    break;
+            }
+            getLightboxDOM();
+            event.preventDefault();
+        }, true);
 
         lightbox.style.display = "block";
         if (medias[index].image) {

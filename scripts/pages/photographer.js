@@ -56,11 +56,11 @@ function displayTotalLikes(medias) {
 }
 
 function sortMedia(medias) {
-    const photographersMedias = document.querySelector(".portfolioContainer");
     const menu = document.querySelector('.filterContainer__filter');
     menu.addEventListener('change', function (evt) {
         var expression = evt.target.value;
-
+        // affichage?
+        document.querySelector('.portfolioContainer').innerHTML = "";
         switch (expression) {
             case 'title':
                 medias.sort((a, b) => {
@@ -72,36 +72,16 @@ function sortMedia(medias) {
                     }
                     return 0;
                 })
-                medias.forEach((media) => {
-                    const portfolio = photographerPortfolioFactory(media);
-                    portfolioArray.push(portfolio);
-                    const portfolioCardDOM = portfolio.getPortfolioCardDOM();
-                    photographersMedias.append(portfolioCardDOM);
-                })
                 break;
             case 'popularity':
                 medias.sort((a, b) => b.likes - a.likes);
-                medias.forEach((media) => {
-                    const portfolio = photographerPortfolioFactory(media);
-                    portfolioArray.push(portfolio);
-                    const portfolioCardDOM = portfolio.getPortfolioCardDOM();
-                    photographersMedias.append(portfolioCardDOM);
-                })
                 break;
             case 'date':
-                medias.sort((a, b) => b.date - a.date);
-                medias.forEach((media) => {
-                    const portfolio = photographerPortfolioFactory(media);
-                    portfolioArray.push(portfolio);
-                    const portfolioCardDOM = portfolio.getPortfolioCardDOM();
-                    photographersMedias.append(portfolioCardDOM);
-                })
+                medias.sort((a, b) => new Date(b.date) - new Date(a.date));
                 break;
         }
-
+        displayMedia(medias)
     })
-
-
 };
 
 
@@ -112,11 +92,12 @@ function openLightbox(id) {
 
 function likeMedia(id) {
     const portfolioToLike = portfolioArray.find(p => p.id === id)
-    if (likeMedia.done) return;
-    portfolioToLike.like()
     likeCount = document.getElementById('likeCount');
-    likeCount.innerText = +likeCount.innerText + 1;
-    likeMedia = true;
+    if (portfolioToLike.like()) {
+        likeCount.innerText = +likeCount.innerText + 1;
+    } else {
+        likeCount.innerText = +likeCount.innerText - 1;
+    }
 
 }
 
@@ -131,7 +112,7 @@ async function init() {
     // Récupère les données des médias
     const { medias } = await getMedias();
     // Affiche les données des médias
-    // displayMedia(medias);
+    displayMedia(medias);
     // Affiche le nombre total des "likes" des médias
     displayTotalLikes(medias);
     sortMedia(medias);

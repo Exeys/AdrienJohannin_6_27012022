@@ -1,6 +1,6 @@
 function photographerPortfolioFactory(data) {
     let { photographerId, title, image, video, likes, price, id } = data;
-
+    let alreadyLiked = false;
     function getPortfolioCardDOM() {
         const media = document.createElement('div')
         media.className = "portfolio__media";
@@ -38,8 +38,15 @@ function photographerPortfolioFactory(data) {
 
 
     function like() {
-        likes++;
+        if (alreadyLiked) {
+            likes--
+            alreadyLiked = false;
+        } else {
+            likes++;
+            alreadyLiked = true;
+        }
         document.getElementById('nbLike_' + id).innerText = likes;
+        return alreadyLiked;
     }
     return { id, photographerId, title, image, video, price, likes, getPortfolioCardDOM, like }
 }

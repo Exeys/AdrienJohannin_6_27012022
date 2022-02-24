@@ -1,5 +1,5 @@
 function photographerPageFactory(data) {
-    const { name, portrait, city, country, tagline} = data;
+    const { name, portrait, city, country, tagline } = data;
 
     const picture = `assets/photographers/${portrait}`;
 
@@ -22,6 +22,12 @@ function photographerPageFactory(data) {
         <div class="infos__picture">
             <img src="${picture}" alt="${name}"/>
         </div>
+        `
+
+        const modal = document.querySelector('.modal__subtitle-text')
+        
+        modal.innerHTML = `
+        ${name}
         `
         return (container);
     }
