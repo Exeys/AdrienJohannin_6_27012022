@@ -1,4 +1,3 @@
-
 // Récupère l'id du photographe dans l'URL
 const id = (new URL(document.location)).searchParams.get('id');
 let mediaArray = [];
@@ -34,6 +33,7 @@ async function displayData(photographers) {
 async function displayMedia(medias) {
     const photographersMedias = document.querySelector(".portfolioContainer");
     medias.forEach((media) => {
+        console.log(media);
         const portfolio = photographerPortfolioFactory(media);
         portfolioArray.push(portfolio);
         const portfolioCardDOM = portfolio.getPortfolioCardDOM();
@@ -41,6 +41,7 @@ async function displayMedia(medias) {
     })
 }
 function displayTotalLikes(medias) {
+    likesCounter = 0;
     const container = document.querySelector('.pricing')
     const likes = document.createElement('p')
     likes.className = "pricing__likes"
@@ -58,7 +59,7 @@ function displayTotalLikes(medias) {
     })
 }
 
-function sortMedia(medias) {
+function sortMedia() {
     const menu = document.querySelector('.filterContainer__filter');
     menu.addEventListener('change', function (evt) {
         var expression = evt.target.value;
@@ -66,7 +67,7 @@ function sortMedia(medias) {
         document.querySelector('.portfolioContainer').innerHTML = "";
         switch (expression) {
             case 'title':
-                medias.sort((a, b) => {
+                portfolioArray.sort((a, b) => {
                     if (a.title < b.title) {
                         return -1;
                     }
@@ -77,13 +78,18 @@ function sortMedia(medias) {
                 })
                 break;
             case 'popularity':
-                medias.sort((a, b) => b.likes - a.likes);
+                portfolioArray.sort((a, b) => b.likes - a.likes);
                 break;
             case 'date':
-                medias.sort((a, b) => new Date(b.date) - new Date(a.date));
+                portfolioArray.sort((a, b) => new Date(b.date) - new Date(a.date));
                 break;
         }
-        displayMedia(medias);
+        const photographersMedias = document.querySelector(".portfolioContainer");
+        portfolioArray.forEach((portfolio) => {
+            const portfolioCardDOM = portfolio.getPortfolioCardDOM();
+            photographersMedias.append(portfolioCardDOM);
+        });
+        
     })
 };
 
@@ -104,8 +110,6 @@ function likeMedia(id) {
 
 }
 
-
-
 // 
 async function init() {
     // Récupère les données des photographes
@@ -119,6 +123,13 @@ async function init() {
     // Affiche le nombre total des "likes" des médias
     displayTotalLikes(medias);
     sortMedia(medias);
+    const pricing = document.querySelector('.pricing');
+        pricing.innerHTML = `
+        <p  class="pricing__price"
+            role="text"
+            aria-label="Tarifs du photographe ${price} euros par jour"
+            tabindex="0">${price}€ / jour</p>
+        `
 };
 
 // Appel de la fonction 

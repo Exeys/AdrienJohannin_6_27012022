@@ -52,13 +52,6 @@ function photographerPortfolioFactory(data) {
         </div>
         `
         }
-        const pricing = document.querySelector('.pricing');
-        pricing.innerHTML = `
-        <p  class="pricing__price"
-            role="text"
-            aria-label="Tarifs du photographe ${price} euros par jour"
-            tabindex="0">${price}€ / jour</p>
-        `
         return (media);
     }
 
