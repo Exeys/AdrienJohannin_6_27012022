@@ -2,40 +2,65 @@ function photographerPortfolioFactory(data) {
     let { photographerId, title, image, video, likes, price, id } = data;
     let alreadyLiked = false;
     function getPortfolioCardDOM() {
-        const media = document.createElement('div')
+        const media = document.createElement('figure')
+        media.tabIndex = -1;
         media.className = "portfolio__media";
         if (image) {
             media.innerHTML = `
-        <img class="portfolio__media-img" src="../assets/medias/${image}" onclick="openLightbox(${id})"/>
-        <div class="portfolio__media-text">
-        <p class="portfolio__media-text-title"> ${title}</p>
-        <div class="portfolio__media-text-icon">
-        <p class="like" id="nbLike_${id}" onclick="likeMedia(${id})">${likes}</p>
-        <img src="../assets/icons/heart.svg"/>
-        </div>
+        <img    alt="${title}" 
+                class="portfolio__media-img" 
+                src="../assets/medias/${image}" 
+                onclick="openLightbox(${id})"
+                tabindex="0"
+                aria-label="Photographie intitulé${title}"/>
+        <div class="portfolio__media-text"">
+            <p class="portfolio__media-text-title"> ${title}</p>
+            <div class="portfolio__media-text-icon">
+                <p  class="like" 
+                    id="nbLike_${id}" 
+                    onclick="likeMedia(${id})"
+                    aria-label="Nombre de likes de la photo ${likes}"
+                    tabindex="0">${likes}</p>
+                <img    src="../assets/icons/heart.svg"
+                        alt="likes"
+                        tabindex="0"/>
+            </div>
         </div>
         `
         }
 
         if (video) {
             media.innerHTML = `
-        <video class="portfolio__media-video" src="../assets/medias/${video}" type=video/mp4 onclick="openLightbox(${id})"></video>
+        <video  class="portfolio__media-video" 
+                src="../assets/medias/${video}" 
+                type="video/mp4" 
+                onclick="openLightbox(${id})"
+                tabindex="0"
+                aria-label="Vidéographie intitulé ${title}"></video>
         <div class="portfolio__media-text">
-        <p class="portfolio__media-text-title"> ${title}</p>
-        <div class="portfolio__media-text-icon">
-        <p class="like" onclick="likeMedia()">${likes}</p>
-        <img src="../assets/icons/heart.svg"/>
-        </div>
+            <p class="portfolio__media-text-title"> ${title}</p>
+            <div class="portfolio__media-text-icon">
+                <p  class="like" 
+                    id="nbLike_${id}" 
+                    onclick="likeMedia(${id})"
+                    aria-label="Nombre de likes de la vidéo ${likes}"
+                    tabindex="0">${likes}</p>
+                <img    src="../assets/icons/heart.svg"
+                        alt="likes"
+                        tabindex="0"/>
+            </div>
         </div>
         `
         }
         const pricing = document.querySelector('.pricing');
         pricing.innerHTML = `
-        <p class="pricing__price">${price}€ / jour</p>
+        <p  class="pricing__price"
+            role="text"
+            aria-label="Tarifs du photographe ${price} euros par jour"
+            tabindex="0">${price}€ / jour</p>
         `
         return (media);
     }
-
 
     function like() {
         if (alreadyLiked) {

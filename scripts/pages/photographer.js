@@ -49,7 +49,10 @@ function displayTotalLikes(medias) {
             likesCounter += media.likes
         }
         likes.innerHTML = `
-            <span id="likeCount">${likesCounter}</span><img src="../assets/icons/heart.svg"/>
+            <span   id="likeCount"
+                    aria-label="Nombre de likes total du photographe ${likesCounter}"
+                    tabindex="0">${likesCounter}</span>
+                    <img src="../assets/icons/heart.svg"/>
         `
         container.prepend(likes);
     })
@@ -80,7 +83,7 @@ function sortMedia(medias) {
                 medias.sort((a, b) => new Date(b.date) - new Date(a.date));
                 break;
         }
-        displayMedia(medias)
+        displayMedia(medias);
     })
 };
 

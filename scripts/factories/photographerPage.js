@@ -9,18 +9,26 @@ function photographerPageFactory(data) {
         container.innerHTML = ` 
         <div class="infos__infos">
             <div class="infos__infos-title">
-                <h2>${name}</h2>
+                <h2 tabindex="0">${name}</h2>
             </div>
             <div class="infos__infos-subtitle">
-                <p class="localisation">${city}, ${country}</p>
-                <p class="tagline">${tagline}</p>
+                <p  class="location" 
+                    role="text" 
+                    aria-label="Localisation du photographe" 
+                    tabindex="0">${city}, ${country}</p>
+                <p  class="tagline" 
+                    role="text" 
+                    aria-label="Devise du photographe"
+                    tabindex="0">${tagline}</p>
             </div>
         </div>
         <div class="infos__contact">
             <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
         </div>
         <div class="infos__picture">
-            <img src="${picture}" alt="${name}"/>
+            <img    src="${picture}" 
+                    alt="Photo de ${name}"
+                    tabindex="0"/>
         </div>
         `
 

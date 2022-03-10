@@ -6,17 +6,17 @@ function photographerFactory(data) {
     function getUserCardDOM() {
         const article = document.createElement('article');
         article.innerHTML = `
-        <a href="photographer.html?id=${id}">
-            <div class="title focusable">
-                <img src="${picture}" alt="${name}"/>
-                <h2>${name}</h2>
-            </div>
+        <a class="title" 
+        href="photographer.html?id=${id}" 
+        aria-label="Lien vers la page du photographe selectionné">
+            <img src="${picture}" alt="${name}"/>
+            <h2>${name}</h2>
         </a>
-            <div class="subtitle">
-                <p class="localisation">${city}, ${country}</p>
-                <p class="tagline">${tagline}</p>
-                <p class="price">${price}€/jour</p>
-            </div>
+        <div class="subtitle">
+            <p class="localisation">${city}, ${country}</p>
+            <p class="tagline">${tagline}</p>
+            <p class="price">${price}€/jour</p>
+        </div>
         `
         return (article);
     }

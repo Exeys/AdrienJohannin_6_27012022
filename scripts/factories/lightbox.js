@@ -2,21 +2,27 @@ function lightboxFactory(medias, id) {
     let index = medias.findIndex(m => m.id === id);
     function getLightboxDOM() {
         const lightbox = document.querySelector(".lightbox");
+        lightbox.setAttribute("tabindex","0");
         const container = document.createElement("div");
         container.className = "container";
         container.innerHTML = "";
+        container.setAttribute("aria-label","Aperçu du média")
 
         const closeLightbox = document.createElement("img");
         closeLightbox.src = "../assets/icons/close.svg";
         closeLightbox.className = "close"
+        closeLightbox.setAttribute("alt", "Fermer l'apperçu" )
+
 
         const nextLightbox = document.createElement("img");
         nextLightbox.src = "../assets/icons/next.svg";
         nextLightbox.className = "next";
+        nextLightbox.setAttribute("alt", "Media suivant")
 
         const previousLightbox = document.createElement("img");
         previousLightbox.src = "../assets/icons/previous.svg";
         previousLightbox.className = "previous";
+        previousLightbox.setAttribute("alt", "Media précédent")
 
         // Au clic sur l'element de fermeture
         closeLightbox.addEventListener('click', () => {
@@ -52,7 +58,7 @@ function lightboxFactory(medias, id) {
         if (medias[index].image) {
             const ctner = document.createElement("div");
             ctner.innerHTML = `
-            <img class="media" src="../assets/medias/${medias[index].image}"/>
+            <img alt="${medias[index].title}" class="media" src="../assets/medias/${medias[index].image}"/>
             `
             /**const image = document.createElement("img")
             image.className = "media"
