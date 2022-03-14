@@ -59,6 +59,23 @@ function displayTotalLikes(medias) {
     })
 }
 
+function displayPrice(photographers){
+    priceText = ""
+     const container = document.querySelector('.pricing')
+     const price = document.createElement('p')
+     price.className = "pricing__price"
+     photographers.forEach((photographer) =>{
+         if (photographer.id == id){
+            priceText += photographer.price
+         }
+         price.innerHTML = `
+            <span   aria-label="Tarif du photographe ${priceText}"
+                    tabindex="0">${priceText}€ / jour</span>
+         `
+         container.prepend(price)
+     })
+}
+
 function sortMedia() {
     const menu = document.querySelector('.filterContainer__filter');
     menu.addEventListener('change', function (evt) {
@@ -120,16 +137,12 @@ async function init() {
     const { medias } = await getMedias();
     // Affiche les données des médias
     displayMedia(medias);
-    // Affiche le nombre total des "likes" des médias
+    // Affiche le tarif journalier du photographe
+    displayPrice(photographers);
+    // Affiche le nombre total des "likes" des médias du photographe
     displayTotalLikes(medias);
+    // Fonction de tri des médias 
     sortMedia(medias);
-    const pricing = document.querySelector('.pricing');
-        pricing.innerHTML = `
-        <p  class="pricing__price"
-            role="text"
-            aria-label="Tarifs du photographe ${price} euros par jour"
-            tabindex="0">${price}€ / jour</p>
-        `
 };
 
 // Appel de la fonction 
