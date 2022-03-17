@@ -1,17 +1,19 @@
 function lightboxFactory(medias, id) {
     let index = medias.findIndex(m => m.id === id);
+
     function getLightboxDOM() {
+
         const lightbox = document.querySelector(".lightbox");
-        lightbox.setAttribute("tabindex","0");
+        lightbox.setAttribute("tabindex", "0");
         const container = document.createElement("div");
         container.className = "container";
         container.innerHTML = "";
-        container.setAttribute("aria-label","Aperçu du média")
+        container.setAttribute("aria-label", "Aperçu du média")
 
         const closeLightbox = document.createElement("img");
         closeLightbox.src = "../assets/icons/close.svg";
         closeLightbox.className = "close"
-        closeLightbox.setAttribute("alt", "Fermer l'apperçu" )
+        closeLightbox.setAttribute("alt", "Fermer l'apperçu")
 
 
         const nextLightbox = document.createElement("img");
