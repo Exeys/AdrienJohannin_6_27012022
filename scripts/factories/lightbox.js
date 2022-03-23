@@ -26,16 +26,19 @@ function lightboxFactory(medias, id) {
         previousLightbox.className = "previous";
         previousLightbox.setAttribute("alt", "Media précédent")
 
-        // Au clic sur l'element de fermeture
-        closeLightbox.addEventListener('click', () => {
+        // Fonction de fermeture de la lightbox
+        function closeLightboxFunction() {
+            const lightbox = document.querySelector(".lightbox");
             lightbox.style.display = "none"
+        }
+
+        // Au clic sur l'element de fermeture, appel de la fonction de fermeture de la lightbox
+        closeLightbox.addEventListener('click', () => {
+            closeLightboxFunction();
         })
 
         // Écoute des instructions au clavier (touches fléchées)
         window.addEventListener('keydown', function (event) {
-            if (event.defaultPrevented) {
-                return;
-            }
             switch (event.key) {
                 case 'ArrowLeft':
                     if (index > 0) {
@@ -43,6 +46,7 @@ function lightboxFactory(medias, id) {
                     } else {
                         index = medias.length - 1;
                     }
+                    getLightboxDOM();
                     break;
                 case 'ArrowRight':
                     if (index < medias.length - 1) {
@@ -50,13 +54,17 @@ function lightboxFactory(medias, id) {
                     } else {
                         index = 0;
                     }
+                    getLightboxDOM();
+                    break;
+                case 'Escape':
+                    closeLightboxFunction();
                     break;
             }
-            getLightboxDOM();
             event.preventDefault();
         }, true);
 
         lightbox.style.display = "block";
+
         if (medias[index].image) {
             const ctner = document.createElement("div");
             ctner.innerHTML = `
