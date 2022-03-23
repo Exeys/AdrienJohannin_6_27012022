@@ -31,7 +31,7 @@ async function displayData(photographers) {
     const photograph = photographers.find((e) => e.id == id);
     const photographPage = photographerPageFactory(photograph);
     const pageUserCardDOM = photographPage.getPageUserCardDOM();
-    photographersHeader.append(pageUserCardDOM);
+    photographersHeader.innerHTML = pageUserCardDOM;
 }
 
 // Fonction d'affichage des medias, 
@@ -40,7 +40,6 @@ async function displayData(photographers) {
 async function displayMedia(medias) {
     const photographersMedias = document.querySelector(".portfolioContainer");
     medias.forEach((media) => {
-        console.log(media);
         const portfolio = photographerPortfolioFactory(media);
         portfolioArray.push(portfolio);
         const portfolioCardDOM = portfolio.getPortfolioCardDOM();
@@ -118,7 +117,7 @@ function sortMedia() {
         });
         
     })
-};
+}
 
 // Fonction d'ouverture et d'affichage de la lightbox (l'apperçu d'un média)
 function openLightbox(id) {
@@ -126,7 +125,9 @@ function openLightbox(id) {
     lightbox.getLightboxDOM();
 }
 
-// Fonction de like d'un media, lorsque le nombre de like est cliqué pour un média donné, alors celui-ci est incrémenté de 1
+// Fonction de like d'un media, 
+// lorsque le nombre de like est cliqué pour un média donné, 
+// alors celui-ci est incrémenté de 1
 function likeMedia(id) {
     const portfolioToLike = portfolioArray.find(p => p.id === id)
     likeCount = document.getElementById('likeCount');
@@ -154,7 +155,7 @@ async function init() {
     displayTotalLikes(medias);
     // Fonction de tri des médias 
     sortMedia(medias);
-};
+}
 
 // Appel de la fonction d'initialisation
 init();

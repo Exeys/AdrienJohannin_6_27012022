@@ -4,9 +4,8 @@ function photographerPageFactory(data) {
     const picture = `assets/photographers/${portrait}`;
 
     function getPageUserCardDOM() {
-        const container = document.querySelector('.infosContainer')
 
-        container.innerHTML = ` 
+        const innerHTML = ` 
         <div class="infos__infos">
             <div class="infos__infos-title">
                 <h2 tabindex="0">${name}</h2>
@@ -36,7 +35,7 @@ function photographerPageFactory(data) {
         modal.innerHTML = `
         ${name}
         `
-        return (container);
+        return (innerHTML);
     }
     return { name, portrait, getPageUserCardDOM }
 }

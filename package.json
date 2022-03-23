@@ -1,0 +1,22 @@
+{
+  "name": "adrienjohannin_6_27012022",
+  "version": "1.0.0",
+  "description": "Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Exeys/AdrienJohannin_6_27012022.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Exeys/AdrienJohannin_6_27012022/issues"
+  },
+  "homepage": "https://github.com/Exeys/AdrienJohannin_6_27012022#readme",
+  "devDependencies": {
+    "eslint": "^8.11.0"
+  }
+}

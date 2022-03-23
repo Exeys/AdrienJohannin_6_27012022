@@ -38,7 +38,7 @@ function lightboxFactory(medias, id) {
         })
 
         // Écoute des instructions au clavier (touches fléchées)
-        window.addEventListener('keydown', function (event) {
+        lightbox.addEventListener('keydown', function (event) {
             switch (event.key) {
                 case 'ArrowLeft':
                     if (index > 0) {
