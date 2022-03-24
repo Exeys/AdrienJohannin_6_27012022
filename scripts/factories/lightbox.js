@@ -29,7 +29,7 @@ function lightboxFactory(medias, id) {
         // Fonction de fermeture de la lightbox
         function closeLightboxFunction() {
             const lightbox = document.querySelector(".lightbox");
-            lightbox.style.display = "none"
+            lightbox.innerHTML = ""
         }
 
         // Au clic sur l'element de fermeture, appel de la fonction de fermeture de la lightbox
